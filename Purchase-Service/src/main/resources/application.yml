@@ -1,0 +1,9 @@
+grpc:
+  client:
+    grpc-user-service:
+      address: static://localhost:8090
+      negotiationType: plaintext
+
+    grpc-budget-service:
+      address: static://localhost:9050
+      negotiationType: plainText

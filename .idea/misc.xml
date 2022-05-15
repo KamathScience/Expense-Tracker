@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/User-Service/pom.xml" />
+        <option value="$PROJECT_DIR$/Budget-Service/pom.xml" />
+        <option value="$PROJECT_DIR$/Purchase-Service/pom.xml" />
+        <option value="$PROJECT_DIR$/User-proto/pom.xml" />
+        <option value="$PROJECT_DIR$/Budget-Proto/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" default="true" project-jdk-name="16" project-jdk-type="JavaSDK" />
+</project>

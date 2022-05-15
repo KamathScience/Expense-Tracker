@@ -1,0 +1,35 @@
+
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: auto;
+    padding-bottom: 50px;
+    gap: 50px;
+    width : 300px;
+  
+    justify-content: center;
+}
+
+@media only screen and (max-width: 1200px) {
+    .dashboard-cards{
+        grid-template-columns: 1fr;
+    }
+}
+
+.card {
+    width: 100%; 
+    color: #fff;  
+    background-color: var(--second-bg-color);
+    border-radius: 10px;
+    box-shadow:  10px 10px 10px #151d28;
+}
+
+.chart-canvas {
+    margin: 20px;
+    position: relative;
+    min-height: 250px;
+    display: inline-block;
+     width: 350px;
+    height: 350px;
+}

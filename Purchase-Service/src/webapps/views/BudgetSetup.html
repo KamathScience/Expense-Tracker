@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Budget Setup</title>
+  <meta name ="viewport" content="width=device-width , initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link href="css/BudgetCSS.css" type = "text/css" rel="stylesheet">
+
+</head>
+<body>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<div class="container-fluid bg ">
+  <div class = "col-md-4 col-sm-4 col xs-12"></div>
+  <div class ="col-md-4 col-sm-4 col-xs-12">
+    <form class="form-container" id="my-form">
+      <h1> Budget Setup</h1>
+      <h4> Kudos! You are one step away from tracking your expenses!</h4>
+      <br>
+      <div class="msg"></div>
+        
+      <div class="form-group">
+        <label for="budget">Budget For Spending this month</label>
+        <input type="number" min="1" oninput="validity.valid||(value='');" class="form-control"  id="budget" placeholder="Budget 1000.00" required>
+      </div>
+      <div class="form-group">
+        <label for="title">Budget Title</label>
+        <input type="name" class="form-control"  id="title" placeholder="Budget Title" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Budget Description</label>
+        <textarea class="form-control" id="description" rows="2"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-success btn-block" id="budget_submit">Submit</button>
+      <script src = "js/budgetJS.js"></script>
+
+
+    </form>
+  </div>
+  <div class = "col-md-4 col-sm-4 col xs-12"></div>
+</div>
+</body>
+</html>

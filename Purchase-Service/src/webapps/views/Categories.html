@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(function(){
+            $('#header').load('Header.html');
+            $('#footer').load('Footer.html');
+        });
+    </script>
+     <link href="css/Categories.css" type = "text/css" rel="stylesheet">
+
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+
+    <div id="header"></div>
+        <div class="category-list">
+<!-- //---------- -->
+            <div class="category-item">
+                <div class="category-name">
+                    category1
+                </div>
+                
+                <div class="category-transactions">
+                    <div class="category-transactions-body">
+                        category1<button type="click"  class="delete-transaction"> delete</button> <button class = "edit-transaction">edit </button>
+                    </div>
+                    <button type="click"  class="add TransactionButton">Add Transaction </button>
+                </div>
+            </div>
+            <div>
+                <button type="click" class ="delete-category"> delete</button> <button class = "edit-category"> edit </button>
+            </div>
+<!-- //------------ -->
+           
+            <div>
+                <button type="button" class="add CategoryButton btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> Add Categories </button>
+            </div>
+            
+        </div>
+        
+        
+        <!-- Modal -->
+       
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="add-categoryModal-heading">Add New Category</h5>
+    
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="category-title" class="col-form-label">Title</label>
+                    <input type="text" class="form-control" id="category-title">
+                  </div>
+                  <div class="form-group">
+                    <label for="category-description" class="col-form-label">Description</label>
+                    <textarea class="form-control" id="category-description"></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="add-category-button">Add category</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- -Modal -->
+
+        <script src = "js/categories.js"></script>
+          <div id="footer"></div>
+</body>
+</html>

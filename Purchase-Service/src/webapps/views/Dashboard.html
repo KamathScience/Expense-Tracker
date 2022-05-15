@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(function(){
+            $('#header').load('Header.html');
+            $('#footer').load('Footer.html');
+        });
+    </script>
+     <link href="css/Dashboard.css" type = "text/css" rel="stylesheet">
+</head>
+<body>
+    <div id="header"></div>
+
+    <div class="dashboard-cards">
+        <div class="card" id="card-1">
+            <div class="chart-canvas">
+                <canvas id="budget-spent"></canvas>
+            </div>
+        </div>
+        <div class="card"  id="card-2">
+            <div class="chart-canvas">
+                <canvas id="category-spent"></canvas>
+
+
+            </div>
+        </div>
+        <div class="card"  id="card-3">
+            <div class="chart-canvas">
+                <canvas id="user-spent"></canvas>
+            </div>
+        </div>
+        <div class="card"  id="card-4">
+            <div class="chart-canvas">
+                <canvas id="partner-spent"></canvas>
+            </div>
+        </div>
+    </div>
+    <script type = "text/javascript" src = "js/dashboard.js"></script>
+    <div id="footer"></div>
+</body>
+</html>

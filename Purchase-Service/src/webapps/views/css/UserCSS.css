@@ -1,0 +1,31 @@
+*{
+    color: #fff;
+}
+
+.bg{
+    background-image: url('../images/blur.jpg') ;
+    background-size: cover;
+    background-repeat: repeat;
+    width: 100%;
+    height: 120vh;
+}
+
+
+.form-container{
+    border: 1px solid;
+    padding: 50px 60px;
+    margin-top:5vh;
+    -webkit-box-shadow: -1px 4px 30px 10px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 4px 30px 10px rgba(0,0,0,0.75);
+    box-shadow: -1px 4px 30px 10px rgba(0,0,0,0.75);
+}
+
+.btn{
+margin-top: 10px}
+
+.error {
+    background: orangered;
+    color: #fff;
+    padding: 5px;
+    margin: 5px;
+  }

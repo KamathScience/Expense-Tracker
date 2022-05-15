@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Budget-Proto/Budget-Proto.iml" filepath="$PROJECT_DIR$/Budget-Proto/Budget-Proto.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Budget-Service/Budget-Service.iml" filepath="$PROJECT_DIR$/Budget-Service/Budget-Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/CurbTheCoins.iml" filepath="$PROJECT_DIR$/.idea/CurbTheCoins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Purchase-Service/Purchase-Service.iml" filepath="$PROJECT_DIR$/Purchase-Service/Purchase-Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/User-Service/User-Service.iml" filepath="$PROJECT_DIR$/User-Service/User-Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/User-proto/User-proto.iml" filepath="$PROJECT_DIR$/User-proto/User-proto.iml" />
+    </modules>
+  </component>
+</project>
