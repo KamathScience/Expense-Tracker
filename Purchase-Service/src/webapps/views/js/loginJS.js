@@ -35,6 +35,11 @@ my_form.addEventListener('submit', function(e){
         else{
             sessionStorage.setItem("token",data.token)
             sessionStorage.setItem("token-expiry", new Date().getTime() + (2 * 60 * 60 * 1000)  )
+            sessionStorage.setItem("userName" , data.userName);
+            sessionStorage.setItem("userId", data.userId);
+            sessionStorage.setItem("partnerId", data.partnerId);
+            sessionStorage.setItem("invite_code", data.invite_code);
+
          
                 window.location.href = "http://127.0.0.1:5500/Dashboard.html";
         }

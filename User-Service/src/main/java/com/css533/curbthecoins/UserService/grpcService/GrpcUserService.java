@@ -30,6 +30,7 @@ public class GrpcUserService extends UserProtoServiceGrpc.UserProtoServiceImplBa
                     .setLastName(user.getLastName())
                     .setEmail(user.getEmail())
                     .setPartnerId(user.getPartnerId())
+                    .setInviteCode(user.getInviteCode())
                     .build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
@@ -56,6 +57,7 @@ public class GrpcUserService extends UserProtoServiceGrpc.UserProtoServiceImplBa
                     .setLastName(user.getLastName())
                     .setUserId(user.getUserId())
                     .setPartnerId(user.getPartnerId())
+                    .setInviteCode(user.getInviteCode())
                     .build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();

@@ -91,7 +91,7 @@ public class BudgetResourceController {
 
     @DeleteMapping("/deleteBudget")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<Map<Descriptors.FieldDescriptor, Object>> deleteCategory(HttpServletRequest request){
+    public ResponseEntity<Map<Descriptors.FieldDescriptor, Object>> deleteBudget(HttpServletRequest request){
         int userId = (Integer) request.getAttribute("UserId");
         Integer partnerId = (Integer) request.getAttribute("Partner");
         System.out.println("Inside budget edit for partner : " + userId);

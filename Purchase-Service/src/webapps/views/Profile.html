@@ -5,20 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="css/Profile.css" type = "text/css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script>
+  
+<script>
         $(function(){
             $('#header').load('Header.html');
             $('#footer').load('Footer.html');
         });
     </script>
-</head>
-<body>
+  </head>
+  <body>
+ 
     <div id="header"></div>
-    <script>
-        console.log(sessionStorage.getItem("token"));
-    </script>
+    <div class="userBody">
+        <h2> Invite code Page</h2>
 
+    </div>
     <div id="footer"></div>
+    <script src = "js/profile.js"></script>
 </body>
 </html>

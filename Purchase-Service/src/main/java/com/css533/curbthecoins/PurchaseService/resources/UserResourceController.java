@@ -23,6 +23,10 @@ public class UserResourceController {
     @Autowired
     UserGRPCService userServiceGrpc;
 
+    public UserResourceController() {
+
+    }
+
     @CrossOrigin(origins = "*")
     @PostMapping("/register")
     public ResponseEntity< Map<String, String>> registerUser(@RequestBody Map<String, Object> userMap){
@@ -74,6 +78,10 @@ public class UserResourceController {
         System.out.println(user.getPartnerId() + " inside generate JWT Token ");
         Map<String, String> map = new HashMap<>();
         map.put("token", token);
+        map.put("userName", user.getFirstName() +" "+ user.getLastName());
+        map.put("userId", user.getUserId() +"");
+        map.put("invite_code", user.getInviteCode());
+        map.put("partnerId", user.getPartnerId()+"");
         return map;
     }
 

@@ -1,0 +1,13 @@
+*{
+    color : wheat;
+}
+
+body{
+    background-image: url('../images/index-back.jpg') ;
+    background-size: cover;
+    background-repeat: repeat;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    margin-left: 300px;
+}

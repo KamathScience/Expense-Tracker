@@ -21,6 +21,7 @@ public class TransactionResourceController {
     ITransactionService transactionService;
 
     @PostMapping("")
+    @CrossOrigin
     public ResponseEntity<Transaction> addTransaction(HttpServletRequest request,
                                                       @PathVariable("categoryId") Integer categoryId,
                                                       @RequestBody Map<String, Object> transactionMap){
@@ -34,6 +35,7 @@ public class TransactionResourceController {
     }
 
     @GetMapping("{transactionId}")
+    @CrossOrigin
     public ResponseEntity<Transaction> getTransactionById(HttpServletRequest request,
                                                           @PathVariable("categoryId") Integer categoryId,
                                                           @PathVariable("transactionId") Integer transactionId){
@@ -44,6 +46,7 @@ public class TransactionResourceController {
     }
 
     @GetMapping("")
+    @CrossOrigin
     public ResponseEntity<List<Transaction>> getAllTransactions(HttpServletRequest request,
                                                                 @PathVariable("categoryId") Integer categoryId){
         int userId = (Integer) request.getAttribute("UserId");
@@ -53,6 +56,7 @@ public class TransactionResourceController {
     }
 
     @PutMapping("/{transactionId}")
+    @CrossOrigin
     public ResponseEntity<Map<String, Boolean>> updateTransaction(HttpServletRequest request,
                                                           @PathVariable("categoryId") Integer categoryId,
                                                           @PathVariable("transactionId") Integer transactionId,
@@ -65,6 +69,7 @@ public class TransactionResourceController {
     }
 
     @DeleteMapping("/{transactionId}")
+    @CrossOrigin
     public ResponseEntity<Map<String, Boolean>> deleteTransaction(HttpServletRequest request,
                                                                   @PathVariable("categoryId") Integer categoryId,
                                                                   @PathVariable("transactionId") Integer transactionId){

@@ -1,0 +1,19 @@
+*{
+    color: #fff;
+}
+
+body{
+    background-image: url('../images/user-back.jpg') ;;
+}
+
+.userBody{
+    margin-left: 300px;
+    font-style: italic;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+h1, h2, h3{
+    
+    font-size: 2.5rem;
+  }

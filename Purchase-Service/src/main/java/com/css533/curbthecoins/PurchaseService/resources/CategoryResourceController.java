@@ -20,9 +20,8 @@ public class CategoryResourceController {
     @Autowired
     ICategoryService categoryService;
 
-
-
     @GetMapping("")
+    @CrossOrigin
     public ResponseEntity<List<Category>> getAllCategories(HttpServletRequest request){
         int userId = (Integer) request.getAttribute("UserId");
         Integer partnerId = (Integer) request.getAttribute("Partner");
@@ -31,6 +30,7 @@ public class CategoryResourceController {
     }
 
     @PostMapping("")
+    @CrossOrigin
     public ResponseEntity<Category> addCategory (HttpServletRequest request , @RequestBody Map<String , Object> categoryMap){
         int userId = (Integer) request.getAttribute("UserId");
         Integer partnerId = (Integer) request.getAttribute("Partner");
@@ -44,6 +44,7 @@ public class CategoryResourceController {
     }
 
     @GetMapping("/{categoryId}")
+    @CrossOrigin
     public ResponseEntity<Category> getCategoryById(HttpServletRequest request, @PathVariable("categoryId") Integer categoryId){
         int userId = (Integer) request.getAttribute("UserId");
         Integer partnerId = (Integer) request.getAttribute("Partner");
@@ -52,6 +53,7 @@ public class CategoryResourceController {
     }
 
     @PutMapping("/{categoryId}")
+    @CrossOrigin
     public ResponseEntity<Map<String, Boolean>> updateCategory(HttpServletRequest request,
                                                                @PathVariable("categoryId") Integer categoryId,
                                                                @RequestBody Category category){
@@ -65,6 +67,7 @@ public class CategoryResourceController {
     }
 
     @DeleteMapping("/{categoryId}")
+    @CrossOrigin
     public ResponseEntity<Map<String, Boolean>> deleteCategory(HttpServletRequest request,
                                                                @PathVariable("categoryId") Integer categoryId){
         int userId = (Integer) request.getAttribute("UserId");

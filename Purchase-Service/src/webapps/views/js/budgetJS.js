@@ -1,5 +1,5 @@
 window.addEventListener('load', function () {
-    if(!this.sessionStorage.getItem("token") || this.sessionStorage.getItem("token-expiry") < new Date().getTime){
+    if(!this.sessionStorage.getItem("token")){
         window.location.href = "http://127.0.0.1:5500/Index.html";
     }
   })
@@ -43,6 +43,7 @@ my_form.addEventListener('submit', function(e){
             // TODO: ERROR DISPLAYS ONLY THE FIRST TIME
         }
         else{
+                // sessionStorage.setItem("budgetSetUp" ,true);
                 window.location.href = "http://127.0.0.1:5500/Dashboard.html";
         }
     }).catch(function(error){

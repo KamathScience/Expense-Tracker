@@ -10,13 +10,14 @@ public class User {
     private String inviteCode;
     private Integer partnerId;
 
-    public User(Integer userId, String firstname, String lastName, String email, String password, Integer partnerId){
+    public User(Integer userId, String firstname, String lastName, String email, String password, Integer partnerId, String inviteCode){
         this.userId = userId;
         this.firstName = firstname;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.partnerId = partnerId;
+        this.inviteCode = inviteCode;
     }
 
     public String getPassword() {

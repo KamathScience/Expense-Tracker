@@ -19,8 +19,8 @@ public class UserRepository implements IUserRepository{
 
     private static final String SQL_CREATE = "INSERT INTO CC_USERS(USER_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES(NEXTVAL('CC_USERS_SEQ'), ?,?,?,?)";
     private static final String SQL_COUNT_BY_EMAIL = "SELECT COUNT(*) FROM CC_USERS WHERE EMAIL = ?";
-    private static final String SQL_FIND_BY_ID = "SELECT USER_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, PARTNER FROM CC_USERS WHERE USER_ID = ?";
-    private static final String SQL_FIND_BY_EMAIL_AND_PASSWORD = "SELECT USER_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, PARTNER FROM CC_USERS WHERE EMAIL = ?";
+    private static final String SQL_FIND_BY_ID = "SELECT USER_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, PARTNER, INVITE_CODE FROM CC_USERS WHERE USER_ID = ?";
+    private static final String SQL_FIND_BY_EMAIL_AND_PASSWORD = "SELECT USER_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, PARTNER,INVITE_CODE FROM CC_USERS WHERE EMAIL = ?";
     private static final String SQL_COUNT_BY_INVITE_CODE = "SELECT COUNT(*) FROM CC_USERS WHERE INVITE_CODE = ?";
     private static final String SQL_COUNT_BY_PARTNER = "SELECT COUNT(*) FROM CC_USERS WHERE INVITE_CODE = ? AND PARTNER IS NULL";
     private static final String SQL_FIND_BY_INVITE_CODE = "SELECT USER_ID FROM CC_USERS WHERE INVITE_CODE = ? AND PARTNER IS NULL";
@@ -53,11 +53,11 @@ public class UserRepository implements IUserRepository{
         try{
             User user = jdbcTemplate.queryForObject(SQL_FIND_BY_EMAIL_AND_PASSWORD, userRowMapper, new Object[]{email});
             if(!BCrypt.checkpw(password, user.getPassword())){
-                throw new CCAuthException(user.getPassword() + "Invalid username / password");
+                throw new CCAuthException(user.getPassword() + "Invalid username / password 1 ");
             }
             return user;
         }catch( Exception e){
-            throw new CCAuthException("Invalid email/password");
+            throw new CCAuthException("Invalid email/password" + e.getMessage());
         }
     }
 
@@ -124,7 +124,8 @@ public class UserRepository implements IUserRepository{
                 rs.getString("LAST_NAME"),
                 rs.getString("EMAIL"),
                 rs.getString("PASSWORD"),
-                rs.getInt("PARTNER"));
+                rs.getInt("PARTNER"),
+                rs.getString("INVITE_CODE"));
                 return user;
     };
 
