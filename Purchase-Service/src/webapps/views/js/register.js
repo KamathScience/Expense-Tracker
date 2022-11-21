@@ -27,7 +27,7 @@ my_form.addEventListener('submit', function(e){
     }).then(function(response){
         console.log(response);
         return response.json();
-       
+
     }).then(function(data){
         if(data.error){
             var message =data.error;
@@ -46,40 +46,9 @@ my_form.addEventListener('submit', function(e){
             sessionStorage.setItem("invite_code", data.invite_code);
 
             if(code === ""){
-                window.location.href = "http://127.0.0.1:5500/budgetsetup.html";
+                window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/BudgetSetup.html";
             }else{
-                fetch('http://localhost:9000/api/categories/budget/updateBudgetPartner' , {
-                    method: 'PUT',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + sessionStorage.getItem("token")
-                    }
-                }).then(function(response){
-                    console.log(response + " inside valid code ");
-                    return response.json();
-                   
-                }).then(function(data){
-                    if(data.error){
-                        var message =data.error;
-                        msg.classList.add('error');
-                        msg.innerHTML = message;
-                        setTimeout(() => msg.remove(), 3000);
-                        console.log(data);
-                        // TODO: ERROR DISPLAYS ONLY THE FIRST TIME
-                    }
-                    else{
-                       
-                        window.location.href = "http://127.0.0.1:5500/Dashboard.html";
-                    }
-                }).catch(function(error){
-                    console.log(error)
-                    var message = "errorMessage";
-                    msg.classList.add('error');
-                    msg.innerHTML = message;
-                    setTimeout(() => msg.remove(), 3000);
-                    console.log("inside 400 code " + message )
-                });
+                window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Dashboard.html";
             }
 
         }

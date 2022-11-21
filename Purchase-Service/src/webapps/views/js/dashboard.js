@@ -1,9 +1,8 @@
-// window.addEventListener('load', function () {
-//     if(!this.sessionStorage.getItem("token") || this.sessionStorage.getItem("token-expiry") > new Date().getTime){
-//         window.location.href = "http://127.0.0.1:5500/Index.html";
-//     }
-//   })
-
+window.addEventListener('load', function () {
+    if(!this.sessionStorage.getItem("token")){
+        window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Index.html";
+    }
+  })
 
 var bgC = { 'green': "rgba(75, 192, 192, 0.7)", 'blue': "rgba(54, 162, 235,0.7)", 'violett': "rgba(153, 102, 255, 0.7)", 'red': "rgba(255, 99, 132, 0.7)", 'orange': "rgba(255, 159, 64, 0.7)", 'yellow': "rgba(255, 205, 86, 0.7)",'grey': "rgba(201, 203, 207, 0.7)"};
 var backgroundColorCategory = [bgC.red, bgC.orange, bgC.yellow, bgC.green, bgC.blue, bgC.violett, bgC.grey];
@@ -20,6 +19,14 @@ function transactionData(currentCategoryID){
                 }
             }).then(function(response){
                 if(!response.ok){
+                    if(response.status === 403){
+                        alert("session expired, Please Login");
+                        window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Login.html";
+                    }
+                    if(response.status == 400){
+                        alert("Please set your budget");
+                        window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/BudgetSetup.html";
+                    }
                     console.log( "has error");
                 }else{
                     console.log( "has NNOOOO error");
@@ -38,6 +45,14 @@ function transactionData(currentCategoryID){
         }
     }).then(function(response) {
         if(!response.ok){
+            if(response.status === 403){
+                alert("session expired, Please Login");
+                window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Login.html";
+            }
+            if(response.status == 400){
+                alert("Please set your budget");
+                window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/BudgetSetup.html";
+            }
             console.log( "has error");
         }else{
             return response.json();
@@ -53,6 +68,14 @@ function transactionData(currentCategoryID){
         }
     }).then(function(response) {
         if(!response.ok){
+            if(response.status === 403){
+                alert("session expired, Please Login");
+                window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Login.html";
+            }
+            if(response.status == 400){
+                alert("Please set your budget");
+                window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/BudgetSetup.html";
+            }
             console.log( "has error");
         }else{
             

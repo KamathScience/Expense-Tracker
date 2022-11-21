@@ -1,4 +1,8 @@
-
+window.addEventListener('load', function () {
+    if(!this.sessionStorage.getItem("token")){
+        window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Index.html";
+    }
+  })
 
 window.onload = function loadDetails() {
     let userBody = document.querySelector('.userBody')

@@ -3,7 +3,11 @@
 }
 
 body{
-    background-image: url('../images/user-back.jpg') ;;
+    background-image: url('../images/blur.jpg') ;
+    background-size: cover;
+    background-repeat: repeat;
+    width: 100%;
+    height:100%;
 }
 
 .userBody{

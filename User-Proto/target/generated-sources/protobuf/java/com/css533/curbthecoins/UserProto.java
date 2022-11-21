@@ -15,13 +15,13 @@ public  final class UserProto extends
     super(builder);
   }
   private UserProto() {
-    userId_ = 0L;
+    userId_ = 0;
     firstName_ = "";
     lastName_ = "";
     email_ = "";
     password_ = "";
     inviteCode_ = "";
-    partnerId_ = 0L;
+    partnerId_ = 0;
     hasError_ = false;
     error_ = "";
   }
@@ -53,7 +53,7 @@ public  final class UserProto extends
           }
           case 8: {
 
-            userId_ = input.readInt64();
+            userId_ = input.readInt32();
             break;
           }
           case 18: {
@@ -88,7 +88,7 @@ public  final class UserProto extends
           }
           case 56: {
 
-            partnerId_ = input.readInt64();
+            partnerId_ = input.readInt32();
             break;
           }
           case 64: {
@@ -126,11 +126,11 @@ public  final class UserProto extends
   }
 
   public static final int USER_ID_FIELD_NUMBER = 1;
-  private long userId_;
+  private int userId_;
   /**
-   * <code>int64 user_id = 1;</code>
+   * <code>int32 user_id = 1;</code>
    */
-  public long getUserId() {
+  public int getUserId() {
     return userId_;
   }
 
@@ -305,11 +305,11 @@ public  final class UserProto extends
   }
 
   public static final int PARTNER_ID_FIELD_NUMBER = 7;
-  private long partnerId_;
+  private int partnerId_;
   /**
-   * <code>int64 partner_id = 7;</code>
+   * <code>int32 partner_id = 7;</code>
    */
-  public long getPartnerId() {
+  public int getPartnerId() {
     return partnerId_;
   }
 
@@ -368,8 +368,8 @@ public  final class UserProto extends
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (userId_ != 0L) {
-      output.writeInt64(1, userId_);
+    if (userId_ != 0) {
+      output.writeInt32(1, userId_);
     }
     if (!getFirstNameBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, firstName_);
@@ -386,8 +386,8 @@ public  final class UserProto extends
     if (!getInviteCodeBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 6, inviteCode_);
     }
-    if (partnerId_ != 0L) {
-      output.writeInt64(7, partnerId_);
+    if (partnerId_ != 0) {
+      output.writeInt32(7, partnerId_);
     }
     if (hasError_ != false) {
       output.writeBool(8, hasError_);
@@ -402,9 +402,9 @@ public  final class UserProto extends
     if (size != -1) return size;
 
     size = 0;
-    if (userId_ != 0L) {
+    if (userId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(1, userId_);
+        .computeInt32Size(1, userId_);
     }
     if (!getFirstNameBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, firstName_);
@@ -421,9 +421,9 @@ public  final class UserProto extends
     if (!getInviteCodeBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, inviteCode_);
     }
-    if (partnerId_ != 0L) {
+    if (partnerId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(7, partnerId_);
+        .computeInt32Size(7, partnerId_);
     }
     if (hasError_ != false) {
       size += com.google.protobuf.CodedOutputStream
@@ -477,8 +477,7 @@ public  final class UserProto extends
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + USER_ID_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getUserId());
+    hash = (53 * hash) + getUserId();
     hash = (37 * hash) + FIRST_NAME_FIELD_NUMBER;
     hash = (53 * hash) + getFirstName().hashCode();
     hash = (37 * hash) + LAST_NAME_FIELD_NUMBER;
@@ -490,8 +489,7 @@ public  final class UserProto extends
     hash = (37 * hash) + INVITE_CODE_FIELD_NUMBER;
     hash = (53 * hash) + getInviteCode().hashCode();
     hash = (37 * hash) + PARTNER_ID_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getPartnerId());
+    hash = (53 * hash) + getPartnerId();
     hash = (37 * hash) + HASERROR_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getHasError());
@@ -626,7 +624,7 @@ public  final class UserProto extends
     }
     public Builder clear() {
       super.clear();
-      userId_ = 0L;
+      userId_ = 0;
 
       firstName_ = "";
 
@@ -638,7 +636,7 @@ public  final class UserProto extends
 
       inviteCode_ = "";
 
-      partnerId_ = 0L;
+      partnerId_ = 0;
 
       hasError_ = false;
 
@@ -716,7 +714,7 @@ public  final class UserProto extends
 
     public Builder mergeFrom(com.css533.curbthecoins.UserProto other) {
       if (other == com.css533.curbthecoins.UserProto.getDefaultInstance()) return this;
-      if (other.getUserId() != 0L) {
+      if (other.getUserId() != 0) {
         setUserId(other.getUserId());
       }
       if (!other.getFirstName().isEmpty()) {
@@ -739,7 +737,7 @@ public  final class UserProto extends
         inviteCode_ = other.inviteCode_;
         onChanged();
       }
-      if (other.getPartnerId() != 0L) {
+      if (other.getPartnerId() != 0) {
         setPartnerId(other.getPartnerId());
       }
       if (other.getHasError() != false) {
@@ -775,28 +773,28 @@ public  final class UserProto extends
       return this;
     }
 
-    private long userId_ ;
+    private int userId_ ;
     /**
-     * <code>int64 user_id = 1;</code>
+     * <code>int32 user_id = 1;</code>
      */
-    public long getUserId() {
+    public int getUserId() {
       return userId_;
     }
     /**
-     * <code>int64 user_id = 1;</code>
+     * <code>int32 user_id = 1;</code>
      */
-    public Builder setUserId(long value) {
+    public Builder setUserId(int value) {
       
       userId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int64 user_id = 1;</code>
+     * <code>int32 user_id = 1;</code>
      */
     public Builder clearUserId() {
       
-      userId_ = 0L;
+      userId_ = 0;
       onChanged();
       return this;
     }
@@ -1146,28 +1144,28 @@ public  final class UserProto extends
       return this;
     }
 
-    private long partnerId_ ;
+    private int partnerId_ ;
     /**
-     * <code>int64 partner_id = 7;</code>
+     * <code>int32 partner_id = 7;</code>
      */
-    public long getPartnerId() {
+    public int getPartnerId() {
       return partnerId_;
     }
     /**
-     * <code>int64 partner_id = 7;</code>
+     * <code>int32 partner_id = 7;</code>
      */
-    public Builder setPartnerId(long value) {
+    public Builder setPartnerId(int value) {
       
       partnerId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int64 partner_id = 7;</code>
+     * <code>int32 partner_id = 7;</code>
      */
     public Builder clearPartnerId() {
       
-      partnerId_ = 0L;
+      partnerId_ = 0;
       onChanged();
       return this;
     }

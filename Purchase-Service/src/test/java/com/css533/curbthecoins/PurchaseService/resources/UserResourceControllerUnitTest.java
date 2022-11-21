@@ -1,12 +1,12 @@
 package com.css533.curbthecoins.PurchaseService.resources;
 
+import com.css533.curbthecoins.PurchaseService.gRPCService.BudgetGRPCServices;
 import com.css533.curbthecoins.PurchaseService.gRPCService.UserGRPCService;
 import com.css533.curbthecoins.UserProto;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mockito;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.HttpStatus;
 
 import java.util.HashMap;
@@ -52,32 +52,36 @@ class UserResourceControllerUnitTest {
     @Test
     void registerUserValidCase(){
         UserGRPCService userServiceGrpc = Mockito.mock(UserGRPCService.class);
+        BudgetGRPCServices budgetGRPCServices = Mockito.mock(BudgetGRPCServices.class);
         when(userServiceGrpc.registerUser("Divya","Kamath","dkamath@uw.edu","password","")).thenReturn(userProto);
-        UserResourceController userResourceController = new UserResourceController(userServiceGrpc);
+        UserResourceController userResourceController = new UserResourceController(userServiceGrpc, budgetGRPCServices);
         assertEquals(HttpStatus.OK, userResourceController.registerUser(userMap).getStatusCode());
     }
 
     @Test
     void registerUserInvalidCase(){
         UserGRPCService userServiceGrpc = Mockito.mock(UserGRPCService.class);
+        BudgetGRPCServices budgetGRPCServices = Mockito.mock(BudgetGRPCServices.class);
         when(userServiceGrpc.registerUser("Divya","Kamath","dkamath@uw.edu","password","")).thenReturn(badUserProto);
-        UserResourceController userResourceController = new UserResourceController(userServiceGrpc);
+        UserResourceController userResourceController = new UserResourceController(userServiceGrpc,budgetGRPCServices);
         assertEquals(HttpStatus.BAD_REQUEST, userResourceController.registerUser(userMap).getStatusCode());
     }
 
     @Test
     void loginUserValidCase(){
         UserGRPCService userServiceGrpc = Mockito.mock(UserGRPCService.class);
+        BudgetGRPCServices budgetGRPCServices = Mockito.mock(BudgetGRPCServices.class);
         when(userServiceGrpc.loginUser("dkamath@uw.edu", "password")).thenReturn(userProto);
-        UserResourceController userResourceController = new UserResourceController(userServiceGrpc);
+        UserResourceController userResourceController = new UserResourceController(userServiceGrpc,budgetGRPCServices);
         assertEquals(HttpStatus.OK, userResourceController.loginUser(userMap).getStatusCode());
     }
 
     @Test
     void loginUserInvalidCase(){
         UserGRPCService userServiceGrpc = Mockito.mock(UserGRPCService.class);
+        BudgetGRPCServices budgetGRPCServices = Mockito.mock(BudgetGRPCServices.class);
         when(userServiceGrpc.loginUser("dkamath@uw.edu", "password")).thenReturn(badUserProto);
-        UserResourceController userResourceController = new UserResourceController(userServiceGrpc);
+        UserResourceController userResourceController = new UserResourceController(userServiceGrpc, budgetGRPCServices);
         assertEquals(HttpStatus.BAD_REQUEST, userResourceController.loginUser(userMap).getStatusCode());
     }
 

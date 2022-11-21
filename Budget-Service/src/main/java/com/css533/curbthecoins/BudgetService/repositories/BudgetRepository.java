@@ -20,20 +20,20 @@ public class BudgetRepository implements IBudgetRepository{
 
     private static final String SQL_FIND_BY_ID = "SELECT BUDGET_ID, USER_ID, PARTNER_ID, BUDGET, TITLE, DESCRIPTION FROM CC_BUDGET WHERE USER_ID IN (? , ?)";
     private static final String SQL_CREATE = "INSERT INTO CC_BUDGET (BUDGET_ID, USER_ID, PARTNER_ID, BUDGET, TITLE, DESCRIPTION) VALUES ( NEXTVAL('CC_BUDGET_SEQ'),?,?,?,?,? )";
-    private static final String SQL_UPDATE = "UPDATE CC_BUDGET SET BUDGET = ?, TITLE = ?, DESCRIPTION = ? WHERE USER_ID IN (? , ? )";
+    private static final String SQL_UPDATE = "UPDATE CC_BUDGET SET BUDGET = ?, TITLE = ?, DESCRIPTION = ? WHERE BUDGET_ID = ?";
     private static final String SQL_UPDATE_PARTNER = "UPDATE CC_BUDGET SET PARTNER_ID = ? WHERE USER_ID = ?";
-    private static final String SQL_DELETE_CATEGORY = "DELETE FROM CC_BUDGET WHERE USER_ID IN (?, ?)";
+    private static final String SQL_COUNT = "SELECT COUNT(*) FROM CC_BUDGET WHERE USER_ID IN (?, ?)";
 
     @Autowired
     JdbcTemplate jdbcTemplate;
 
     @Override
     public Budget findById(Integer userId, Integer partnerId) throws CCBudgetNotFoundException {
+        System.out.println("5. Inside budget repository. Fetching budget of the user"+ userId +" and partnerId" + partnerId);
         try{
             if(partnerId == null){
                 partnerId = 0;
             }
-            System.out.println("Inside findby id  userId " + userId);
             return jdbcTemplate.queryForObject(SQL_FIND_BY_ID, budgetRowMapper, new Object[]{userId,partnerId});
         }catch(Exception e){
             throw new CCBudgetNotFoundException("Budget not found" + e.getMessage());
@@ -42,6 +42,7 @@ public class BudgetRepository implements IBudgetRepository{
 
     @Override
     public Integer create(Integer userId, Integer partnerId, Double budget, String title, String description) throws CCBadRequestException {
+        System.out.println("5. Inside budget repository. Creating new budget of the user"+ userId +" and partnerId" + partnerId);
         try{
             System.out.println("Inside create budget repository userID " + userId+" partnerID " + partnerId );
             KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -63,9 +64,10 @@ public class BudgetRepository implements IBudgetRepository{
     }
 
     @Override
-    public void update(Integer userId, Integer partnerId, Double budget, String title, String description) throws CCBadRequestException {
+    public void update(Integer budgetId, Double budget, String title, String description) throws CCBadRequestException {
+        System.out.println("5. Inside budget repository. Updating the budget of the budget"+ budgetId );
         try{
-            jdbcTemplate.update(SQL_UPDATE , new Object[]{budget, title, description, userId, partnerId});
+            jdbcTemplate.update(SQL_UPDATE , new Object[]{budget, title, description, budgetId});
         }catch(Exception e){
             throw new CCBadRequestException("Invalid request" + e.getMessage());
         }
@@ -73,6 +75,7 @@ public class BudgetRepository implements IBudgetRepository{
 
     @Override
     public void updatePartner(Integer userId, Integer partnerId) throws CCBadRequestException {
+        System.out.println("5. Inside budget repository. Updating budget partner of the user"+ userId +" and partnerId" + partnerId);
         try{
             jdbcTemplate.update(SQL_UPDATE_PARTNER , new Object[]{userId, partnerId});
         }catch(Exception e){
@@ -81,11 +84,11 @@ public class BudgetRepository implements IBudgetRepository{
     }
 
     @Override
-    public void removeById(Integer userId, Integer partnerId) {
+    public Integer countById(Integer userId, Integer partnerId) {
         if(partnerId == null){
             partnerId = 0;
         }
-        jdbcTemplate.update(SQL_DELETE_CATEGORY, new Object[]{userId,partnerId});
+        return jdbcTemplate.queryForObject(SQL_COUNT,Integer.class, new Object[]{userId,partnerId});
     }
 
     private RowMapper<Budget> budgetRowMapper = ((rs, rowNum) ->{

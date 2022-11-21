@@ -20,10 +20,9 @@ public class UserGRPCService {
                 .setPassword(password)
                 .setInviteCode(inviteCode)
                 .build();
-        System.out.println("Inside purchase register user service");
-
+            System.out.println("2. Inside gRPC user register client. Making a gRPC call to user service from purchase service");
             UserProto userResponse = userServiceStub.registerUserProto(user);
-            System.out.println("return purchase  register user  service");
+            System.out.println("2. Inside gRPC user register client. Received response from user service to purchase service via gRPC call");
             return userResponse;
     }
 
@@ -33,9 +32,9 @@ public class UserGRPCService {
                 .setEmail(email)
                 .setPassword(password)
                 .build();
-        System.out.println("Inside purchase login user service");
+            System.out.println("2. Inside gRPC user login client. Making a gRPC call to user service from purchase service");
             UserProto userResponse = userServiceStub.loginUserProto(user);
-            System.out.println("return purchase  login user  service");
+            System.out.println("2. Inside gRPC user login client. Received response from user service to purchase service via gRPC call");
             return userResponse;
     }
 

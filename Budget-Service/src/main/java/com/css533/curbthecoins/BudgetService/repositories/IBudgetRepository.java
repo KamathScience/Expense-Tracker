@@ -10,9 +10,9 @@ public interface IBudgetRepository {
 
     Integer create(Integer userId, Integer partnerId, Double budget, String title, String description) throws CCBadRequestException;
 
-    void update(Integer userId, Integer partnerId, Double budget, String title, String description) throws CCBadRequestException;
+    void update(Integer budgetId, Double budget, String title, String description) throws CCBadRequestException;
 
     void updatePartner(Integer userId, Integer partnerId) throws CCBadRequestException;
 
-    void removeById(Integer userId, Integer partnerId);
+    Integer countById(Integer userId, Integer partnerId);
 }

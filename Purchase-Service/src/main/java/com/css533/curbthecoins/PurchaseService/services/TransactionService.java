@@ -19,27 +19,32 @@ public class TransactionService implements  ITransactionService{
 
     @Override
     public List<Transaction> fetchAllTransactions(Integer userId, Integer partnerId,Integer categoryId) {
+        System.out.println("2. Received request to fetch all transactions of particular category, forwarding the request to transaction repository");
         return transactionRepository.findAll(userId,partnerId,categoryId);
     }
 
     @Override
     public Transaction fetchTransactionById(Integer userId, Integer partnerId,Integer categoryId, Integer transactionId) throws CCResourceNotFoundException {
+        System.out.println("2. Received fetch a particular transaction request, forwarding the request to transaction repository");
         return transactionRepository.findById(userId, partnerId,categoryId, transactionId);
     }
 
     @Override
     public Transaction addTransaction(Integer userId, Integer partnerId,Integer categoryId, Double amount, String note, Long transactionalDate) throws CCBadRequestException {
+        System.out.println("2. Received add transaction request, forwarding the request to transaction repository");
         int transactionId = transactionRepository.create(userId, categoryId, amount, note, transactionalDate);
         return transactionRepository.findById(userId,partnerId, categoryId, transactionId);
     }
 
     @Override
     public void updateTransaction(Integer userId, Integer categoryId, Integer transactionId, Transaction transaction) throws CCBadRequestException {
+        System.out.println("2. Received update transaction request, forwarding the request to transaction repository");
         transactionRepository.update(userId,categoryId, transactionId, transaction);
     }
 
     @Override
     public void removeTransaction(Integer userId, Integer partnerId,Integer categoryId, Integer transactionId) throws CCResourceNotFoundException {
+        System.out.println("2. Received delete transaction request, forwarding the request to transaction repository");
         transactionRepository.removeById(userId, partnerId, categoryId, transactionId);
     }
 }

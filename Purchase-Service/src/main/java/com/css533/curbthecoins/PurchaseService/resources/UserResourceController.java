@@ -1,6 +1,7 @@
 package com.css533.curbthecoins.PurchaseService.resources;
 
 import com.css533.curbthecoins.PurchaseService.Constants;
+import com.css533.curbthecoins.PurchaseService.gRPCService.BudgetGRPCServices;
 import com.css533.curbthecoins.PurchaseService.gRPCService.UserGRPCService;
 import com.css533.curbthecoins.UserProto;
 import io.jsonwebtoken.Jwts;
@@ -23,9 +24,8 @@ public class UserResourceController {
     @Autowired
     UserGRPCService userServiceGrpc;
 
-    public UserResourceController() {
-
-    }
+    @Autowired
+    BudgetGRPCServices budgetGRPCServices;
 
     @CrossOrigin(origins = "*")
     @PostMapping("/register")
@@ -35,13 +35,19 @@ public class UserResourceController {
         String email = (String) userMap.get("email");
         String password = (String) userMap.get("password");
         String inviteCode = (String) userMap.get("inviteCode");
-        System.out.println("Inside purchase register user resource for user : " + firstName);
+        System.out.println("1. Received request in Purchase service to register user " + firstName + ". Forwarding request to GRPC user register client method ");
         UserProto user = userServiceGrpc.registerUser(firstName, lastName, email, password, inviteCode) ;
         if(!user.getHasError()){
+            System.out.println("1. Successfully registered user " + firstName);
+            if(inviteCode != ""){
+                System.out.println(" user id "+ user.getUserId() + " partner Id "+user.getPartnerId());
+                budgetGRPCServices.editBudgetPartner(user.getUserId(),user.getPartnerId());
+            }
             return new ResponseEntity<>(generateJWTToken(user), HttpStatus.OK);
         }else{
             Map<String, String> errorMap = new HashMap<>();
             errorMap.put("error" , user.getError());
+            System.out.println("1. Failed to registered user " + firstName + "Error : " + user.getError());
             return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
         }
     }
@@ -51,13 +57,15 @@ public class UserResourceController {
     public ResponseEntity<Map<String, String>> loginUser(@RequestBody Map<String,Object> userMap){
         String email = (String) userMap.get("email");
         String password = (String) userMap.get("password");
-        System.out.println("Inside purchase login user resource for user : " + email);
+        System.out.println("1. Received request in Purchase service to login user with email " + email + ". Forwarding request to GRPC user login client method ");
         UserProto user = userServiceGrpc.loginUser(email, password);
         if(!user.getHasError()){
+            System.out.println("1. Successfully logged in user " + user.getFirstName());
             return new ResponseEntity<>(generateJWTToken(user), HttpStatus.OK);
         }else{
             Map<String, String> errorMap = new HashMap<>();
             errorMap.put("error" , user.getError());
+            System.out.println("1. Failed to login user with email " + email + "Error : " + user.getError());
             return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
         }
     }
@@ -75,13 +83,14 @@ public class UserResourceController {
                 .claim("Email" , user.getEmail())
                 .claim("Partner", user.getPartnerId())
                 .compact();
-        System.out.println(user.getPartnerId() + " inside generate JWT Token ");
+
         Map<String, String> map = new HashMap<>();
         map.put("token", token);
         map.put("userName", user.getFirstName() +" "+ user.getLastName());
         map.put("userId", user.getUserId() +"");
         map.put("invite_code", user.getInviteCode());
         map.put("partnerId", user.getPartnerId()+"");
+        System.out.println("0. Generated JWT Token for user "+ user.getFirstName());
         return map;
     }
 

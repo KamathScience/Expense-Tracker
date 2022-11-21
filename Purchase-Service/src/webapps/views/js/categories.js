@@ -1,11 +1,19 @@
-// window.addEventListener('load', function () {
-//     if(!this.sessionStorage.getItem("token") || this.sessionStorage.getItem("token-expiry") > new Date().getTime){
-//         window.location.href = "http://127.0.0.1:5500/Index.html";
-//     }
-//   })
+window.addEventListener('load', function () {
+    if(!this.sessionStorage.getItem("token")){
+        window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Index.html";
+    }
+  })
 
 const addCategoryButton = document.querySelector('#add-category-button');
 const deleteCategory = document.querySelectorAll('.delete-category');
+const transactionModalForm = document.querySelector('.transaction-modal');
+const categoryModalForm = document.querySelector('.category-modal');
+var modalCategory = document.querySelector('.modal-category');
+var modalTransaction = document.querySelector('.modal-transaction');
+var modalEditCategory = new bootstrap.Modal(document.querySelector('.modal-edit-category'));
+const modalEditTitle = document.getElementById('edit-category-title');
+const modalDescriptionTitle = document.getElementById('edit-category-description');
+
 
 function fetchCategories() {
         let details = fetch('http://localhost:9000/api/categories' , {
@@ -21,6 +29,10 @@ function fetchCategories() {
    
       window.onload =  fetchCategories().then(function(response){
         if(!response.ok){
+            if(response.status === 403){
+                alert("session expired, Please Login");
+                window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Login.html";
+            }
             console.log( "has error");
         }else{
             return response.json();
@@ -32,7 +44,7 @@ function fetchCategories() {
                     console.log(key);
                     categoryList.innerHTML += `<div class="category-item">
                     <div class="category-name" id="${key.categoryId}">
-                        ${key.title}
+                      <h3>  ${key.title}<h3>        <h5 style="margin-left: 10px;">total expense is ${key.totalExpense}<h5>
                  
                     </div>
                     <div class="category-transactions-${key.categoryId} category-transactions">
@@ -41,11 +53,12 @@ function fetchCategories() {
                     <button type="click"  class="add-transaction  btn btn-primary " id ="${key.categoryId}"  data-bs-toggle="modal" data-bs-target="#AddTransactionModal" onclick="document.querySelector('.add-transaction-button').id = this.id"> Add Transaction </button>
                 </div>
                 <div>
-                    <button type="click" class ="delete-category " id ="${key.categoryId}" onclick="deleteCategoryID(this.id)"> Delete Category</button> 
+                    <button type="click" class ="delete-category " id ="${key.categoryId}" onclick="deleteCategoryID(this.id)"> Delete </button> 
+                    <button type="click" class ="edit-category" id ="${key.categoryId}" onclick="editCategoryID(this.id)"> Edit </button> 
               
                 </div>`;
                 }
-//      // <button type="click" class ="edit-category" id ="${key.categoryId}" onclick="editCategoryID(this.id)"> Edit Category</button> 
+
                 const categoryName = document.querySelectorAll(".category-name");
 
                 const currentlyActiveCategory = document.querySelector(".category-name.active");
@@ -84,6 +97,10 @@ function fetchCategories() {
             }
         }).then(function(response){
             if(!response.ok){
+                if(response.status === 403){
+                    alert("session expired, Please Login");
+                    window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Login.html";
+                }
                 console.log( "has error");
             }else{
                 return response.json();
@@ -94,18 +111,25 @@ function fetchCategories() {
             transactionList.innerHTML = ""
                     for(let key of details){
                         console.log(key);
-                        
-                        transactionList.innerHTML += `
-                        <div class="category-transactions-body" id ="${key.transactionId}">
-                        Transaction of ${key.amount} - ${key.note}
-                        <br>
-                        <br>
-                        <button type="click" class ="delete-transaction " id ="${key.transactionId}" onclick="deleteTransactionID(this.id ,${categoryIdTransactions})"> Delete Transaction</button>  
-                            <button class = "edit-transaction">edit </button>
-                        </div>
-                     `;
+                        if(key.userId == sessionStorage.getItem("userId")){
+                            transactionList.innerHTML += `
+                            <div class="category-transactions-body" id ="${key.transactionId}" style ="background-color : rgb(127, 187, 206)">
+                            <h5>Transaction of ${key.amount}<h5> <h6> ${key.note}<h6>
+                            <button type="click" class ="delete-transaction " id ="${key.transactionId}" onclick="deleteTransactionID(this.id ,${categoryIdTransactions})"> Delete </button>  
+                            </div>
+                         `;
+                        }else{
+                            transactionList.innerHTML += `
+                            <div class="category-transactions-body" id ="${key.transactionId}" >
+                            <h5>Transaction of ${key.amount}<h5> <h6> ${key.note}<h6>
+                            <button type="click" class ="delete-transaction " id ="${key.transactionId}" onclick="deleteTransactionID(this.id ,${categoryIdTransactions})"> Delete </button>  
+                            </div>
+                         `;
+                        }
+                   
                     }
-                                
+                             //                            <button class = "edit-transaction">edit </button>
+   
         }).catch(function(error){
            console.log(error)
            console.log("inside 400 code category"  )
@@ -135,6 +159,10 @@ const saveNewCategory = async() =>{
     }).then(function(response){
         console.log(response);
         if(!response.ok){
+            if(response.status === 403){
+                alert("session expired, Please Login");
+                window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Login.html";
+            }
             console.log("coud not create new category error" + response.json())
         }
         else{
@@ -143,9 +171,9 @@ const saveNewCategory = async() =>{
       
        
     }).then(function(data){
-     
+        
           console.log("added new category " + data);
-          
+          categoryModalForm.reset();
           window.location.reload();
         
     }).catch(function(error){
@@ -183,6 +211,10 @@ function saveNewTransaction(categoryId){
     }).then(function(response){
         console.log(response);
         if(!response.ok){
+            if(response.status === 403){
+                alert("session expired, Please Login");
+                window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Login.html";
+            }
             console.log("coud not create new transaction error" + response.json())
         }
         else{
@@ -191,10 +223,10 @@ function saveNewTransaction(categoryId){
       
        
     }).then(function(data){
-     
+
           console.log("added new transaction " + data);
-          
-        //   window.location.reload();
+          transactionModalForm.reset();
+          window.location.reload();
         
     }).catch(function(error){
         console.log(error)
@@ -215,6 +247,10 @@ function deleteCategoryID(categoryId){
     }).then(function(response){
         console.log(response);
         if(!response.ok){
+            if(response.status === 403){
+                alert("session expired, Please Login");
+                window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Login.html";
+            }
             console.log("coud not delete category error" + response.json())
         }
         else{
@@ -244,6 +280,10 @@ function deleteTransactionID(transactionId, categoryId){
     }).then(function(response){
         console.log(response);
         if(!response.ok){
+            if(response.status === 403){
+                alert("session expired, Please Login");
+                window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Login.html";
+            }
             console.log("coud not delete transaction error" + response.json())
         }
         else{
@@ -260,4 +300,85 @@ function deleteTransactionID(transactionId, categoryId){
     })
 
 }
+
+
+function editCategoryID(categoryId){
+    console.log(categoryId)
+    fetch('http://localhost:9000/api/categories/'+categoryId , {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem("token")
+        }
+    }).then(function(response){
+        console.log(response);
+        if(!response.ok){
+            if(response.status === 403){
+                alert("session expired, Please Login");
+                window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Login.html";
+            }
+            console.log("coud not get category error" + response.json())
+        }
+        else{
+            return response.json();
+        }
+    }).then(function(data){
+        console.log(data)
+        let details =  Object.values(data)
+        console.log(details)
+        document.querySelector('.edit-category-submit-button').id = categoryId
+        modalEditTitle.value = details[2];
+        modalDescriptionTitle.value = details[3];
+        modalEditCategory.show();
+        
+        
+    }).catch(function(error){
+        console.log(error)
+        console.log("inside 400  " )
+    })
+
+}
+
+
+function saveEditedCategory(categoryId){
+let newCategoryTitle = modalEditTitle.value;
+let newCategoryDescription = modalDescriptionTitle.value;
+
+fetch('http://localhost:9000/api/categories/'+categoryId , {
+    method: 'PUT',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + sessionStorage.getItem("token")
+    },
+    body: JSON.stringify({
+        title : newCategoryTitle,
+        description : newCategoryDescription,
+    })
+}).then(function(response){
+    console.log(response);
+    if(!response.ok){
+        if(response.status === 403){
+            alert("session expired, Please Login");
+            window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Login.html";
+        }
+        console.log("coud not update category error" + response.json())
+    }
+    else{
+        return response.json();
+    }
+  
+}).then(function(data){
+      console.log("added new category " + data);
+      categoryModalForm.reset();
+      window.location.reload();
+    
+}).catch(function(error){
+    console.log(error)
+    console.log("inside 400  " )
+})
+
+}
+
 

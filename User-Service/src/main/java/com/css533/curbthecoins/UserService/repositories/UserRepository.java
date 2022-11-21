@@ -31,6 +31,7 @@ public class UserRepository implements IUserRepository{
 
     @Override
     public Integer create(String firstName, String lastName, String email, String password) throws CCAuthException {
+        System.out.println("5. Inside user repository. Adding new user to database after hashing and salting the password");
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
         try{
             KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -44,47 +45,53 @@ public class UserRepository implements IUserRepository{
             }, keyHolder);
             return (Integer) keyHolder.getKeys().get("USER_ID");
         }catch(Exception e){
-            throw new CCAuthException("Invalid detail. Failed to create account" + e.getMessage());
+            throw new CCAuthException("Invalid detail. Failed to create account");
         }
     }
 
     @Override
     public User findByEmailAndPassword(String email, String password) throws CCAuthException {
+        System.out.println("5. Inside user repository. Finding user by email and password");
         try{
             User user = jdbcTemplate.queryForObject(SQL_FIND_BY_EMAIL_AND_PASSWORD, userRowMapper, new Object[]{email});
             if(!BCrypt.checkpw(password, user.getPassword())){
-                throw new CCAuthException(user.getPassword() + "Invalid username / password 1 ");
+                throw new CCAuthException("Invalid username / password");
             }
             return user;
         }catch( Exception e){
-            throw new CCAuthException("Invalid email/password" + e.getMessage());
+            throw new CCAuthException("Invalid email/password");
         }
     }
 
     @Override
     public Integer getCountByEmail(String email) {
+        System.out.println("5. Inside user repository. Checking if user with same email Id is already present");
         return jdbcTemplate.queryForObject(SQL_COUNT_BY_EMAIL, Integer.class,new Object[]{email});
 
     }
 
     @Override
     public User findById(Integer userId) {
+        System.out.println("5. Inside user repository. Fetching user details using userId");
         return jdbcTemplate.queryForObject(SQL_FIND_BY_ID, userRowMapper, new Object[]{userId} );
 
     }
 
     @Override
     public Integer getCountByInviteCode(String inviteCode) {
+        System.out.println("5. Inside  user repository. Checking invite code has been used");
         return jdbcTemplate.queryForObject(SQL_COUNT_BY_INVITE_CODE, Integer.class,new Object[]{inviteCode});
     }
 
     @Override
     public Integer getCountByPartner(String inviteCode) {
+        System.out.println("5. Inside user repository. Fetching number of partners connected to the user");
         return jdbcTemplate.queryForObject(SQL_COUNT_BY_PARTNER, Integer.class,new Object[]{inviteCode});
     }
 
     @Override
     public Integer createWithPartner(String firstName, String lastName, String email, String password, Integer partner) throws CCAuthException {
+        System.out.println("5. Inside user repository. Adding new user to database after hashing and salting the password along with the partner");
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
         try{
             KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -99,24 +106,25 @@ public class UserRepository implements IUserRepository{
             }, keyHolder);
             return (Integer) keyHolder.getKeys().get("USER_ID");
         }catch(Exception e){
-            throw new CCAuthException("Invalid detail. Failed to create account" + e.getMessage());
+            throw new CCAuthException("Invalid detail. Failed to create account");
         }
     }
 
     @Override
     public void updatePartner(Integer userId, Integer partner) throws CCAuthException  {
+        System.out.println("5. Inside user repository. Updating the partner of the user");
         try{
             jdbcTemplate.update(SQL_UPDATE_PARTNER, new Object[]{partner , userId});
         }catch(Exception e){
-            throw new CCAuthException("Invalid request" + e.getMessage() + "*****************************");
+            throw new CCAuthException("Invalid request");
         }
     }
 
     @Override
     public Integer getPartner(String inviteCode) {
+        System.out.println("5. Inside user repository. Fetching partner of the user");
         return jdbcTemplate.queryForObject(SQL_FIND_BY_INVITE_CODE, Integer.class,new Object[]{inviteCode});
     }
-
 
     private RowMapper<User> userRowMapper = (rs, rowNum) -> {
         User user = new User(rs.getInt("USER_ID"),

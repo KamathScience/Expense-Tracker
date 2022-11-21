@@ -41,7 +41,7 @@ my_form.addEventListener('submit', function(e){
             sessionStorage.setItem("invite_code", data.invite_code);
 
          
-                window.location.href = "http://127.0.0.1:5500/Dashboard.html";
+                window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Dashboard.html";
         }
     }).catch(function(error){
         console.log(error)

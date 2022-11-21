@@ -60,7 +60,7 @@ class BudgetResourceControllerUnitTest {
     @Test
     void setupBudgetInvalidTest(){
         BudgetGRPCServices budgetGRPCServices = Mockito.mock(BudgetGRPCServices.class);
-        when(budgetGRPCServices.createBudget(1,1000.00,"title","description")).thenReturn(budgetProtoInvalid);
+        when(budgetGRPCServices.createBudget(1,2,1000.00,"title","description")).thenReturn(budgetProtoInvalid);
         BudgetResourceController budgetResourceController = new BudgetResourceController(budgetGRPCServices);
         assertEquals(HttpStatus.BAD_REQUEST, budgetResourceController.setupBudget(httpServletRequest,budgetMap).getStatusCode());
     }
@@ -68,7 +68,7 @@ class BudgetResourceControllerUnitTest {
     @Test
     void setupBudgetTest(){
         BudgetGRPCServices budgetGRPCServices = Mockito.mock(BudgetGRPCServices.class);
-        when(budgetGRPCServices.createBudget(1,1000.00,"title","description")).thenReturn(budgetProtoValid);
+        when(budgetGRPCServices.createBudget(1,2,1000.00,"title","description")).thenReturn(budgetProtoValid);
         BudgetResourceController budgetResourceController = new BudgetResourceController(budgetGRPCServices);
         assertEquals(HttpStatus.OK, budgetResourceController.setupBudget(httpServletRequest,budgetMap).getStatusCode());
     }
@@ -87,21 +87,7 @@ class BudgetResourceControllerUnitTest {
         BudgetResourceController budgetResourceController = new BudgetResourceController(budgetGRPCServices);
         assertEquals(HttpStatus.OK, budgetResourceController.getBudget(httpServletRequest).getStatusCode());
     }
-    @Test
-    void updateBudgetInvalidTest(){
-        BudgetGRPCServices budgetGRPCServices = Mockito.mock(BudgetGRPCServices.class);
-        when(budgetGRPCServices.editBudget(1,2,100.00,"title","description")).thenReturn(budgetProtoInvalid);
-        BudgetResourceController budgetResourceController = new BudgetResourceController(budgetGRPCServices);
-        assertEquals(HttpStatus.BAD_REQUEST, budgetResourceController.updateBudget(httpServletRequest,budgetObjectMap).getStatusCode());
-    }
 
-    @Test
-    void updateBudgetTest(){
-        BudgetGRPCServices budgetGRPCServices = Mockito.mock(BudgetGRPCServices.class);
-        when(budgetGRPCServices.editBudget(1,2,100.00,"title","description")).thenReturn(budgetProtoValid);
-        BudgetResourceController budgetResourceController = new BudgetResourceController(budgetGRPCServices);
-        assertEquals(HttpStatus.OK, budgetResourceController.updateBudget(httpServletRequest,budgetObjectMap).getStatusCode());
-    }
     @Test
     void updatePartnerBudgetInvalidTest(){
         BudgetGRPCServices budgetGRPCServices = Mockito.mock(BudgetGRPCServices.class);
@@ -117,21 +103,7 @@ class BudgetResourceControllerUnitTest {
         BudgetResourceController budgetResourceController = new BudgetResourceController(budgetGRPCServices);
         assertEquals(HttpStatus.OK, budgetResourceController.updateBudgetPartner(httpServletRequest).getStatusCode());
     }
-    @Test
-    void deleteBudgetInvalidTest(){
-        BudgetGRPCServices budgetGRPCServices = Mockito.mock(BudgetGRPCServices.class);
-        when(budgetGRPCServices.deleteBudget(1,1)).thenReturn(budgetProtoInvalid);
-        BudgetResourceController budgetResourceController = new BudgetResourceController(budgetGRPCServices);
-        assertEquals(HttpStatus.BAD_REQUEST, budgetResourceController.deleteBudget(httpServletRequest).getStatusCode());
-    }
 
-    @Test
-    void deleteBudgetTest(){
-        BudgetGRPCServices budgetGRPCServices = Mockito.mock(BudgetGRPCServices.class);
-        when(budgetGRPCServices.deleteBudget(1,1)).thenReturn(budgetProtoValid);
-        BudgetResourceController budgetResourceController = new BudgetResourceController(budgetGRPCServices);
-        assertEquals(HttpStatus.OK, budgetResourceController.deleteBudget(httpServletRequest).getStatusCode());
-    }
 
 
 

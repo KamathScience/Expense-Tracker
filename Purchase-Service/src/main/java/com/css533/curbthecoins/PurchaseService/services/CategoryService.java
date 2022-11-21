@@ -21,28 +21,32 @@ public class CategoryService implements ICategoryService{
 
     @Override
     public List<Category> fetchAllCategories(Integer userId, Integer partnerId) {
+        System.out.println("2. Received fetch all categories request, forwarding the request to category repository");
         return  categoryRepository.findAll(userId, partnerId);
     }
 
     @Override
     public Category fetchCategoryById(Integer userId,  Integer partnerId, Integer categoryId) throws CCResourceNotFoundException {
+        System.out.println("2. Received fetch particular category request, forwarding the request to category repository");
         return categoryRepository.findById(userId, partnerId, categoryId);
     }
 
     @Override
     public Category addCategory(Integer userId, Integer partnerId, String title, String description) throws CCBadRequestException {
-        System.out.println("Inside add category services userID " + userId+" partnerID " + partnerId );
+        System.out.println("2. Received add category request, forwarding the request to category repository");
         int categoryId = categoryRepository.create(userId,partnerId, title, description);
         return categoryRepository.findById(userId,partnerId, categoryId);
     }
 
     @Override
     public void updateCategory(Integer userId,  Integer partnerId, Integer categoryId, Category category) throws CCBadRequestException {
+        System.out.println("2. Received update category request, forwarding the request to category repository");
         categoryRepository.update(userId,partnerId, categoryId, category);
     }
 
     @Override
     public void removeCategoryWithAllTransactions(Integer userId,  Integer partnerId, Integer categoryId) throws CCResourceNotFoundException {
+        System.out.println("2. Received request to delete category, forwarding the request to category repository");
         this.fetchCategoryById(userId,partnerId,categoryId);
         categoryRepository.removeById(userId,partnerId, categoryId);
     }

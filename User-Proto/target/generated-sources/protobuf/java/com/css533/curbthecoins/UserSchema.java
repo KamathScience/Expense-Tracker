@@ -29,10 +29,10 @@ public final class UserSchema {
   static {
     java.lang.String[] descriptorData = {
       "\n\021user-schema.proto\022\027com.css533.curbthec" +
-      "oins\"\256\001\n\tUserProto\022\017\n\007user_id\030\001 \001(\003\022\022\n\nf" +
+      "oins\"\256\001\n\tUserProto\022\017\n\007user_id\030\001 \001(\005\022\022\n\nf" +
       "irst_name\030\002 \001(\t\022\021\n\tlast_name\030\003 \001(\t\022\r\n\005em" +
       "ail\030\004 \001(\t\022\020\n\010password\030\005 \001(\t\022\023\n\013invite_co" +
-      "de\030\006 \001(\t\022\022\n\npartner_id\030\007 \001(\003\022\020\n\010hasError" +
+      "de\030\006 \001(\t\022\022\n\npartner_id\030\007 \001(\005\022\020\n\010hasError" +
       "\030\010 \001(\010\022\r\n\005error\030\t \001(\t2\315\001\n\020UserProtoServi" +
       "ce\022]\n\021RegisterUserProto\022\".com.css533.cur" +
       "bthecoins.UserProto\032\".com.css533.curbthe" +

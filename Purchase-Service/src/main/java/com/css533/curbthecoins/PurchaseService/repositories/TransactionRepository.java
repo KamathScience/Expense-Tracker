@@ -30,11 +30,13 @@ public class TransactionRepository implements  ITransactionRepository{
 
     @Override
     public List<Transaction> findAll(Integer userId,Integer partnerId, Integer categoryId) {
+        System.out.println("3. Inside transaction repository. Finding all transaction of a category");
         return jdbcTemplate.query(SQL_FIND_ALL , transactionRowMapper, new Object[]{userId,partnerId, categoryId});
     }
 
     @Override
     public Transaction findById(Integer userId, Integer partnerId, Integer categoryId, Integer transactionId) throws CCResourceNotFoundException {
+        System.out.println("3. Inside transaction repository. Finding a particular transaction of a category");
         try{
             return jdbcTemplate.queryForObject(SQL_FIND_BY_ID, transactionRowMapper, new Object[]{userId, partnerId, categoryId, transactionId});
         }catch (Exception e){
@@ -44,6 +46,7 @@ public class TransactionRepository implements  ITransactionRepository{
 
     @Override
     public Integer create(Integer userId, Integer categoryId, Double amount, String note, Long transactionDate) throws CCBadRequestException {
+        System.out.println("3. Inside transaction repository. Creating a transaction of a category");
         try{
             KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection ->{
@@ -55,35 +58,30 @@ public class TransactionRepository implements  ITransactionRepository{
                 ps.setLong(5, transactionDate);
                 return ps;
             }, keyHolder);
-
             return (Integer) keyHolder.getKeys().get("TRANSACTION_ID");
         }catch (Exception e){
             throw new CCBadRequestException("Invalid request");
-            }
-
+        }
     }
 
     @Override
     public void update(Integer userId, Integer categoryId, Integer transactionId, Transaction transaction) throws CCBadRequestException {
-
+        System.out.println("3. Inside transaction repository. Updating a particular transaction of a category");
         try{
             jdbcTemplate.update(SQL_UPDATE, new Object[]{transaction.getAmount(), transaction.getNote(), transaction.getTransactionDate(), userId, categoryId, transactionId});
         }catch(Exception e){
-            throw new CCBadRequestException("Invalid request" + e.getMessage() + "*****************************");
+            throw new CCBadRequestException("Invalid request");
         }
-
     }
 
     @Override
     public void removeById(Integer userId,Integer partnerId, Integer categoryId, Integer transactionId) throws CCResourceNotFoundException {
-
+        System.out.println("3. Inside transaction repository. Removing a particular transaction of a category");
         int count = jdbcTemplate.update(SQL_DELETE, new Object[]{userId,partnerId, categoryId, transactionId});
         if(count == 0){
             throw new CCResourceNotFoundException("No transaction record found");
         }
-
     }
-
 
     private RowMapper<Transaction> transactionRowMapper = ((rs, rowNum) -> {
         return new Transaction(rs.getInt("TRANSACTION_ID"),

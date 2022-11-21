@@ -17,13 +17,16 @@ public class GrpcUserService extends UserProtoServiceGrpc.UserProtoServiceImplBa
 
     @Override
     public void registerUserProto(UserProto request, StreamObserver<UserProto> responseObserver) {
+        System.out.println("3. Inside gRPC user register service. Received request from purchase service via gRPC call");
         String firstName = (String) request.getFirstName();
         String lastName = (String) request.getLastName();
         String email = (String) request.getEmail();
         String password = (String) request.getPassword();
         String inviteCode = (String) request.getInviteCode();
         try {
+            System.out.println("3. Forwarding the request to user-service-method");
             User user = userService.registerUser(firstName, lastName, email, password, inviteCode);
+            System.out.println("3. Received the register response from user-service-method. Sending the response to Purchase service via gRPC call");
             UserProto response = UserProto.newBuilder()
                     .setUserId(user.getUserId())
                     .setFirstName(user.getFirstName())
@@ -35,6 +38,7 @@ public class GrpcUserService extends UserProtoServiceGrpc.UserProtoServiceImplBa
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         }catch(Exception e){
+            System.out.println("3. Received an error response from register user-service-method. Sending the error response to Purchase service via gRPC call");
             UserProto response = UserProto.newBuilder()
                     .setHasError(true)
                     .setError(e.getMessage())
@@ -46,11 +50,13 @@ public class GrpcUserService extends UserProtoServiceGrpc.UserProtoServiceImplBa
 
     @Override
     public void loginUserProto(UserProto request, StreamObserver<UserProto> responseObserver) {
+        System.out.println("3. Inside gRPC user login service. Received request from purchase service via gRPC call");
         String email = (String) request.getEmail();
         String password = (String) request.getPassword();
         try{
+            System.out.println("3. Forwarding the request to user-service-method");
             User user = userService.validateUser(email, password);
-            System.out.println("user.userid" + user.getUserId());
+            System.out.println("3. Received the login response from user-service-method. Sending the response to Purchase service via gRPC call");
             UserProto response = UserProto.newBuilder()
                     .setEmail(user.getEmail())
                     .setFirstName(user.getFirstName())
@@ -62,6 +68,7 @@ public class GrpcUserService extends UserProtoServiceGrpc.UserProtoServiceImplBa
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         }catch(Exception e){
+            System.out.println("3. Received an error response from login user-service-method. Sending the error response to Purchase service via gRPC call");
             UserProto response = UserProto.newBuilder()
                     .setHasError(true)
                     .setError(e.getMessage())

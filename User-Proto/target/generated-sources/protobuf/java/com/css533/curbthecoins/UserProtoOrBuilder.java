@@ -8,9 +8,9 @@ public interface UserProtoOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int64 user_id = 1;</code>
+   * <code>int32 user_id = 1;</code>
    */
-  long getUserId();
+  int getUserId();
 
   /**
    * <code>string first_name = 2;</code>
@@ -63,9 +63,9 @@ public interface UserProtoOrBuilder extends
       getInviteCodeBytes();
 
   /**
-   * <code>int64 partner_id = 7;</code>
+   * <code>int32 partner_id = 7;</code>
    */
-  long getPartnerId();
+  int getPartnerId();
 
   /**
    * <code>bool hasError = 8;</code>

@@ -1,6 +1,6 @@
 window.addEventListener('load', function () {
     if(!this.sessionStorage.getItem("token")){
-        window.location.href = "http://127.0.0.1:5500/Index.html";
+        window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Index.html";
     }
   })
 
@@ -30,6 +30,11 @@ my_form.addEventListener('submit', function(e){
         description : description
         })
     }).then(function(response){
+        if(response.status === 403){
+            alert("session expired, Please Login");
+            window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Login.html";
+        }
+       
         console.log(response)
         return response.json();
        
@@ -44,7 +49,7 @@ my_form.addEventListener('submit', function(e){
         }
         else{
                 // sessionStorage.setItem("budgetSetUp" ,true);
-                window.location.href = "http://127.0.0.1:5500/Dashboard.html";
+                window.location.href = "http://localhost:63342/CurbTheCoins/Purchase-Service/src/webapps/views/Dashboard.html";
         }
     }).catch(function(error){
         console.log(error)

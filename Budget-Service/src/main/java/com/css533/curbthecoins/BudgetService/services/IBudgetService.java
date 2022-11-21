@@ -10,9 +10,9 @@ public interface IBudgetService {
 
     Budget createBudget(Integer userId, Integer partnerId, Double budget, String title, String description) throws CCBadRequestException;
 
-    void updateBudget(Integer userId, Integer partnerId, Double budget, String title, String description) throws CCBadRequestException;
+//    void updateBudget(Integer userId, Integer partnerId, Double budget, String title, String description) throws CCBadRequestException;
 
     void updateBudgetPartner(Integer userId, Integer partnerId) throws CCBadRequestException;
 
-    void removeBudgetById(Integer userId, Integer partnerId);
+//    void removeBudgetById(Integer userId, Integer partnerId);
 }
